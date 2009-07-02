@@ -1,0 +1,40 @@
+/*
+	Formularios
+*/
+
+input[type="text"], input[type="submit"], input[type="password"], input[type="reset"],input[type="checkbox"] {
+	border: 1px solid #bbb;
+	-moz-border-radius: 2px;
+	padding: 1px;
+	margin: 0;
+	padding: 3px;
+}
+input[type="text"], input[type="password"] {
+	width: 350px;
+}
+input[type="text"]:focus, input[type="submit"]:focus, input[type="password"]:focus, input[type="reset"]:focus, input[type="checkbox"]:focus {
+	border:1px solid #666;
+}
+
+.boton, .boton-disabled {
+	-moz-border-radius: 4px;
+	border: 1px solid gray;
+	padding: 2px 10px;
+	margin-top: 10px;
+	color: #666;
+	font-weight: bold;
+}
+.boton:hover, .boton-selected {
+	color: #222;
+	text-decoration: none;
+}
+
+.boton-disabled {
+	border: 1px solid #666;
+	background-color: #f5f5f5;
+}
+
+fieldset.formulario { width: 400px; padding: 20px;}
+fieldset.formulario table { width: 100%; text-align: left; border-spacing: 1px 4px; }
+fieldset.formulario legend {font-weight:bold;font-size:1.4em;}
+.form_botones { width: 70%; text-align: right; margin: auto; margin-top: 20px; }

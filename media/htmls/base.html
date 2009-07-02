@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<head>
+<title>{{ site.name }} :: {% block title %}Main{% endblock %}</title>
+<meta name="generator" content="django 1.0"/>
+<meta name="author" content="Ignacio Feijoo"/>
+<meta name="keywords" content=""/>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW"/>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="expires" content="0"/>
+
+<link rel="stylesheet" href="{{ media_url }}/css/main.css" type="text/css" />
+<link rel="stylesheet" href="{{ media_url }}/css/form.css" type="text/css" />
+{% block customcss %}{% endblock %}
+
+<script type="text/javascript" src="{{ media_url }}/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="{{ media_url }}/js/tools.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+});
+</script>
+{% block customjs %}{% endblock %}
+
+<meta />
+</head>
+<body>
+
+	<div class='border-bottom' style='vertical-align: bottom; margin-bottom: 10px;'>
+		<div class='font-6 pos-left'>{{ site.name }}</div>
+		<div class='pos-right' style='height: 47px; padding-top: 27px;' id='botonera'>
+				<ul>
+				<li><a href="/">Home</a></li>
+				{% if request.user.is_authenticated %}
+					| <li><b class='user'>{{ request.user }}</b></li>
+					| <li><a href="{{ site.domain }}/home/logout/">Salir</a></li>
+				{% else %}
+					| <li><a href="/home/login/">Ingresar</a></li>
+				{% endif %}
+				| <li><a href="#nohacenadaporahora">?</a></li>
+				</ul>
+
+		</div>
+		<div class='font-6' style='height: 45px;'>&nbsp;</div>
+	</div>
+
+	<div style='padding: 2px;' id='toolbar'>{% block tools %}{% endblock %}</div>
+
+	<div style='min-height: 380px; padding: 15px;' id='content'>
+	{% block content %}Caca{% endblock %}
+	</div>
+
+	<div class='border-all' style='margin-top: 10px;' id='footer'>
+		{{ site.name }} || Copyleft © {{ site.name }} || 2009
+	</div>
+
+</body>
+</html>

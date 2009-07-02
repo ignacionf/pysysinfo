@@ -1,0 +1,122 @@
+@charset "UTF-8";
+
+body{
+	text-align:center;
+	font-size: 75%;
+	color:#666;
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+a { color: #666; }
+
+a:link{text-decoration:none;}
+a:visited{text-decoration:none;}
+a:hover{text-decoration: underline;}
+a:active{text-decoration:none;}
+
+.font-1 { font-size: 130%; }
+.font-2 { font-size: 160%; }
+.font-3 { font-size: 190%; }
+.font-4 { font-size: 220%; }
+.font-5 { font-size: 250%; }
+.font-6 { font-size: 280%; }
+
+.center { margin: auto; }
+
+.border-top { border-top: 1px solid #E5E5E5; }
+.border-right { border-right: 1px solid #E5E5E5; }
+.border-bottom { border-bottom: 1px solid #E5E5E5; }
+.border-left { border-left: 1px solid #E5E5E5; }
+.border-all{ border: 1px solid #E5E5E5; }
+
+.pos-left { float: left; display: inline; }
+.pos-right { float: right; display: inline; }
+
+#botonera ul{ list-style-type:none;margin:0; padding-left: 10px;}
+#botonera ul li{ display:inline;padding:0 .5em 0 .5em;}
+#botonera a:hover{text-decoration: none;}
+
+.title { font-weight: bold; }
+
+.user {
+	color: green;
+	font-weight: bold;
+}
+.errorlist {
+	border: 1px solid red;
+	list-style-type:none;
+	margin:0.5em 1.1em 0 0;
+	padding: 5px;
+}
+.errorlist li{ display:inline;}
+
+th {
+	text-align: right;
+	font-weight: bold;
+}
+
+.errors, .errorlist, .ok , .info {
+	width: 90%;
+	padding: 5px 5px 5px 20px;
+	margin: auto;
+	text-align: left;
+	display: none;
+}
+.ok, .info {
+	border: 1px solid #e6db55;
+	background-color: #fffbcc;
+	text-align: center;
+}
+.errors, .errorlist {
+	border: 1px solid #dd1144;
+	background-color: #ffeeee;
+}
+
+.errorlist {
+	display: block;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.table_admin {
+	border-spacing: 0 0;
+	-moz-border-radius: 7px;
+}
+
+.table_row_admin:hover {
+	background-color: #f5f5f5;
+}
+
+.loader {
+	padding-left: 34px;
+	background: url(/static/images/loader.gif) no-repeat;
+	min-height: 32px;
+	text-align: left;
+	vertical-align: bottom;
+	font-size: 14px;
+}
+.loader span { position: relative; top: 7px; }
+
+.radius-all {
+        -moz-border-radius: 7px;
+}
+.radius-top {
+        -moz-border-radius-topleft: 7px;
+        -moz-border-radius-topright: 7px;
+}
+/*
+	Window
+*/
+
+.window {
+	width: 300px;
+	min-height: 150px;
+	padding: 0;
+	margin: 10px;
+}
+
+.window .frame-top {
+	padding: 1px;
+	background-color: #f5f5f5;
+}
+

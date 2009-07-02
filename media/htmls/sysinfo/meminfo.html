@@ -1,0 +1,40 @@
+	<table style='width: 100%; text-align: center;'>
+		<tr><th style='text-align: center;'>Tipo</th><th style='text-align: center; width: 110px;'>%</th><th style='text-align: center;'>Usado</th>
+			<th style='text-align: center;'>Libre</th><th style='text-align: center;'>Total</th></tr>
+
+		<tr><td>Mem. Física</td>
+		    <td><div style='width: 100px; border: 1px solid #83BF4D; height: 16px;'>
+		    	<div style='color: black;height: 16px; width: {{ meminfo.memavg}}px; background-color: #96D57C;'>{{ meminfo.memavg }}%</div>
+			</div></td>
+		    <td>{{ meminfo.memused }} MiB</td>
+		    <td>{{ meminfo.memfree }} MiB</td>
+		    <td>{{ meminfo.memtotal }} MiB</td>
+		</tr>
+
+		<tr><td style='padding-left: 20px;'>+ Cached</td>
+		    <td><div style='width: 100px; border: 1px solid #83BF4D; height: 16px;'>
+		    	<div style='color: black;height: 16px; width: {{ meminfo.memcachedavg}}px; background-color: #96D57C;'>{{ meminfo.memcachedavg }}%</div>
+			</div></td>
+		    <td>{{ meminfo.cached }} MiB</td>
+		    <td></td>
+		    <td></td>
+		</tr>
+
+		<tr><td style='padding-left: 20px;'>+ Buffers</td>
+		    <td><div style='width: 100px; border: 1px solid #83BF4D; height: 16px;'>
+		    	<div style='color: black;height: 16px; width: {{ meminfo.membuffersavg}}px; background-color: #96D57C;'>{{ meminfo.membuffersavg }}%</div>
+			</div></td>
+		    <td>{{ meminfo.buffers }} MiB</td>
+		    <td></td>
+		    <td></td>
+		</tr>
+		<tr><td>Mem. Swap</td>
+		    <td><div style='width: 100px; border: 1px solid #83BF4D; height: 16px;'>
+		    	<div style='color: black;height: 16px; width: {{ meminfo.swapavg}}px; background-color: #96D57C;'>{{ meminfo.swapavg }}%</div>
+			</div></td>
+		    <td>{{ meminfo.swapused }} MiB</td>
+		    <td>{{ meminfo.swapfree }} MiB</td>
+		    <td>{{ meminfo.swaptotal }} MiB</td>
+		</tr>
+
+	</table>

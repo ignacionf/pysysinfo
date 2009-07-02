@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block customcss %} {% endblock %}
+
+{% block customjs %}
+<script>
+function disk(){
+	$('#diskinfo').load('{{ site.domain }}/home/info/disk/');
+}
+function mem(){
+	$('#meminfo').load('{{ site.domain }}/home/info/mem/');
+}
+function sys(){
+	$('#sysinfo').load('{{ site.domain }}/home/info/sys/');
+}
+function pci(){
+	$('#pciinfo').load('{{ site.domain }}/home/info/pci/');
+}
+function cpu(){
+	$('#cpuinfo').load('{{ site.domain }}/home/info/cpu/');
+}
+$(document).ready(function(){
+
+	disk();
+	mem();
+	cpu();
+	pci();
+	sys();
+
+	setInterval('disk()', 10000);
+	setInterval('mem()', 10000);
+	setInterval('sys()', 10000);
+});
+</script>
+
+{% endblock %}
+
+{% block content %}
+<div class='window border-all pos-left'>
+	<div class='frame-top font-1'>System Info</div>
+	<div id='sysinfo'><div class='loader center' style='width: 100px;'><span>Cargando...</span></div></div>
+</div>
+<div class='window border-all pos-left' style='width: 450px;'>
+	<div class='frame-top font-1'>Mem Info</div>
+	<div id='meminfo'></div>
+</div>
+
+<div class='window border-all pos-left' style='width: 400px;'>
+	<div class='frame-top font-1'>CPU Info</div>
+	<div id='cpuinfo'><div class='loader center' style='width: 100px;'><span>Cargando...</span></div></div>
+</div>
+
+<div class='window border-all pos-left' style='width: 400px;'>
+	<div class='frame-top font-1'>Disk Info</div>
+	<div id='diskinfo'></div>
+</div>
+<div class='window border-all pos-left' style='width: 750px;'>
+	<div class='frame-top font-1'>PCI Info</div>
+	<div id='pciinfo'><div class='loader center' style='width: 100px;'><span>Cargando...</span></div></div>
+</div>
+
+<div style='clear: both'>&nbsp;</div>
+
+{% endblock %}

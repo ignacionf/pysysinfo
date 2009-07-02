@@ -1,0 +1,12 @@
+	<table style='width: 100%;'>
+		<tr><th align='right'>Kernel Ver.</th><td> : </td><td align='left'>{{ sysinfo.kernel.systype }} {{ sysinfo.kernel.version }} {{ sysinfo.kernel.MP}}</td></tr>
+		<tr><th align='right'>Hostname</th><td> : </td><td align='left'>{{ sysinfo.fqdn }} </td></tr>
+		<tr><th align='right'>Distro</th><td> : </td><td align='left'>{{ sysinfo.distro.0 }} ({{ sysinfo.distro.1 }})</td></tr>
+		<tr><th align='right'>Uptime</th><td> : </td><td align='left'>{{ sysinfo.uptime.days }} día(s) ({{ sysinfo.uptime.seconds }}s)</td></tr>
+		<tr><th align='right'>Loadavg</th><td> : </td><td align='left'>{{ sysinfo.loadavg.EXT_1 }} || {{ sysinfo.loadavg.EXT_5 }} || {{ sysinfo.loadavg.EXT_15 }}</td></tr>
+		<tr><th align='right'>CPUavg</th><td> : </td><td align='left'>
+			<div style='width: 100px; border: 1px solid #83BF4D; height: 16px;'>
+			<div style='color: black;height: 16px; width: {{ sysinfo.cpuavg }}px; background-color: #96D57C;'>{{ sysinfo.cpuavg }}%</div>
+			</div>
+			</td></tr>
+	</table>

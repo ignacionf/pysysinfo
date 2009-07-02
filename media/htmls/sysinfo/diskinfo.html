@@ -1,0 +1,15 @@
+	<table style='width: 100%; text-align: center;'>
+		<tr><th style='text-align: center;'>fs</th><th style='text-align: center; width: 110px;'>%</th><th style='text-align: center;'>Usado</th>
+			<th style='text-align: center;'>Libre</th><th style='text-align: center;'>Total</th><th style='text-align: center;'>Mnt.</th></tr>
+	{% for disk in info %}
+		<tr><td>{{ disk.fs }}</td>
+		    <td><div style='width: 100px; border: 1px solid #83BF4D; height: 16px;'>
+		    	<div style='color: black;height: 16px; width: {{ disk.used }}px; background-color: #96D57C;'>{{ disk.used }}%</div>
+			</div></td>
+			<td>{{ disk.blocks_used }}</td>
+			<td>{{ disk.blocks_available }}</td>
+			<td>{{ disk.blocks_total }}</td>
+			<td>{{ disk.mount }}</td>
+		</tr>
+	{% endfor %}
+		</table>
