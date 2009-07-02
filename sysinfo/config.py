@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 DISTROS = [
 	{'name': 'Debian','files': ('/etc/debian_release','/etc/debian_version',)},
 	{'name': 'SUSE LINUX','files': ('/etc/SuSE-release','/etc/UnitedLinux-release',)},

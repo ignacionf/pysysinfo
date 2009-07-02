@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 from re import compile
 from socket import getfqdn, gethostname

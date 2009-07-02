@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # Django settings for sysinfo project.
 
 DEBUG = True
@@ -82,6 +84,14 @@ INSTALLED_APPS = (
     'django.contrib.admin',
 )
 
-LOGIN_URL='/home/login/'
-LOGIN_REDIRECT_URL='/home/index/'
+# configuración para especificar el path de la url
+# donde esta instalado pysysinfo. Por ejemplo:
+# URL=http://localhost/pysysinfo => URL_PATH_BASE='pysysinfo'
+# URL=http://localhost/ => URL_PATH_BASE=''
+#
+# es importante no olvidar el / del final
 
+URL_PATH_BASE=''
+
+LOGIN_URL='%s/home/login/' % URL_PATH_BASE
+LOGIN_REDIRECT_URL='%s/home/index/' % URL_PATH_BASE
