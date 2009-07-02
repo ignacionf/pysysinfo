@@ -45,7 +45,7 @@ MEDIA_URL = 'static/'
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/static/admin/'
+ADMIN_MEDIA_PREFIX = 'http://bodas.dreamserver.com.ar/media/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '5+7sv0=i4$h01dfx%!u+m5o5_$sa0)zc#(ko%ulirnm@hovsok'
@@ -82,6 +82,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
 )
 
-LOGIN_URL='/home/login/'
-LOGIN_REDIRECT_URL='/home/index/'
+LOGIN_URL='/pysysinfo/home/login/'
+LOGIN_REDIRECT_URL='/pysysinfo/home/index/'
 
