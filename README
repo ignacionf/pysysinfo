@@ -1,0 +1,24 @@
+* Instalación
+
+cd /var/www
+
+git clone git://github.com/ignacionf/pysysinfo.git
+cd pysysinfo
+vi settings.py # modificar la variable URL_PATH_BASE y, si queres, la variable DATABASE_* con lo que gustes.
+./manage.py syncdb # pone los datos que quieras.
+./manage.py shell
+>>> from django.contrib.sites.models import Site
+>>> site=Site.objects.get(pk=1)
+>>> site.domain='tudominio,ynopongastudominiosinoqueesoquecomienzaconhttp://'
+>>> site.name='pySysInfo' # o lo que quieras
+>>> site.save()
+>>> ^D # ctrl+d
+
+Listo!
+
+* Uso
+
+en la url http://loquepusisteensite.domain/__admin/ tenes el administrador de pysysinfo, crea los usuarios que gustes.
+
+Por ahora, nada más
+
