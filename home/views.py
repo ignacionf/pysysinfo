@@ -45,3 +45,9 @@ def pciinfo(response, template_name):
 	hard=hardware.init()
 	o={'info': hard.lspci()}
 	return render_to_response(template_name, o, context_instance=RequestContext(response))
+
+@login_required
+def ifaceinfo(response, template_name):
+	hard=hardware.init()
+	o={'info': hard.ifaceinfo()}
+	return render_to_response(template_name, o, context_instance=RequestContext(response))

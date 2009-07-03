@@ -167,3 +167,56 @@ class init:
 			return self.__pci_class[class_id][1][subclass_id]
 		except KeyError:
 			return subclass_id
+	
+	def ifaceinfo(self):
+
+		match = compile('\s+(?P<iface>\S+):\s?\s?\s?\s?\s?\s?\s?'
+			'(?P<rx_bytes>\d+)\s+(?P<rx_packets>\d+)\s+(?P<rx_errs>\d+)\s+(?P<rx_drop>\d+)'
+			'\s+(?P<rx_fifo>\d+)\s+(?P<rx_frame>\d+)\s+(?P<rx_compressed>\d+)\s+(?P<rx_multicast>\d+)'
+			'\s+(?P<tx_bytes>\d+)\s+(?P<tx_packets>\d+)\s+(?P<tx_errs>\d+)\s+(?P<tx_drop>\d+)'
+			'\s+(?P<tx_fifo>\d+)\s+(?P<tx_colls>\d+)\s+(?P<tx_carrier>\d+)\s+(?P<tx_compressed>\d+)')
+		contents = []
+		try:
+			f = open(FILES['nicinfo'])
+			for i in f.readlines():
+				m = match.match(i)
+				if m:
+					data=m.groupdict()
+					data['rx_bytes_human']=self.bytes_to_human(m.group('rx_bytes'))
+					data['tx_bytes_human']=self.bytes_to_human(m.group('tx_bytes'))
+					contents.append(data)
+						
+			f.close()
+		except IOError:
+			return None
+
+		return contents
+
+	def bytes_to_human(self,size, precision=1):
+		
+		size=int(size)
+
+		_abbrevs = [
+		    (1<<50L, ' PB'),
+		    (1<<40L, ' TB'),
+		    (1<<30L, ' GB'),
+		    (1<<20L, ' MB'),
+		    (1<<10L, ' kB'),
+		    (1, ' bytes')
+		    ]
+
+		if size==1:
+			return '1 byte'
+		for factor, suffix in _abbrevs:
+			if size >= factor:
+				break
+
+		float_string_split = `size/float(factor)`.split('.')
+		integer_part = float_string_split[0]
+		decimal_part = float_string_split[1]
+		if int(decimal_part[0:precision]):
+			float_string = '.'.join([integer_part, decimal_part[0:precision]])
+		else:
+			float_string = integer_part
+		return float_string + suffix
+

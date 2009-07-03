@@ -10,4 +10,5 @@ urlpatterns = patterns('',
 	(r'^info/sys/$', 'home.views.sysinfo', {'template_name': 'sysinfo/sysinfo.html'}),
 	(r'^info/cpu/$', 'home.views.cpuinfo', {'template_name': 'sysinfo/cpuinfo.html'}),
 	(r'^info/pci/$', 'home.views.pciinfo', {'template_name': 'sysinfo/pciinfo.html'}),
+	(r'^info/iface/$', 'home.views.ifaceinfo', {'template_name': 'sysinfo/ifaceinfo.html'}),
 )

@@ -34,4 +34,5 @@ FILES = {
 	'cpuavg': '/proc/stat',
 	'meminfo': '/proc/meminfo',
 	'cpuinfo': '/proc/cpuinfo',
+	'nicinfo': '/proc/net/dev',
 	}

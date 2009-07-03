@@ -19,16 +19,21 @@ function pci(){
 function cpu(){
 	$('#cpuinfo').load('{{ site.domain }}/home/info/cpu/');
 }
+function iface(){
+	$('#ifaceinfo').load('{{ site.domain }}/home/info/iface/');
+}
 $(document).ready(function(){
 
 	disk();
 	mem();
 	cpu();
 	pci();
+	iface();
 	sys();
 
 	setInterval('disk()', 10000);
 	setInterval('mem()', 10000);
+	setInterval('iface()', 10000);
 	setInterval('sys()', 10000);
 });
 </script>
@@ -50,9 +55,14 @@ $(document).ready(function(){
 	<div id='cpuinfo'><div class='loader center' style='width: 100px;'><span>Cargando...</span></div></div>
 </div>
 
-<div class='window border-all pos-left' style='width: 400px;'>
+<div class='window border-all pos-left' style='width: 500px;'>
 	<div class='frame-top font-1'>Disk Info</div>
 	<div id='diskinfo'></div>
+</div>
+
+<div class='window border-all pos-left' style='width: 500px;'>
+	<div class='frame-top font-1'>Iface Info</div>
+	<div id='ifaceinfo'></div>
 </div>
 <div class='window border-all pos-left' style='width: 750px;'>
 	<div class='frame-top font-1'>PCI Info</div>
