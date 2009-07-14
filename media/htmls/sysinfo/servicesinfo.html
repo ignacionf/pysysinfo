@@ -1,0 +1,44 @@
+	<table style='width: 100%; border-collapse: 2; border-spacing: 2;' >
+
+
+		{% for service,value in info.items %}
+		<tr><th align='right'>{{ service }}</th><td> : </td>
+			<td align='center' style='font-weight: bold; background-color: {% if value.is_running %}#CAE6AD;{% else %}#F26160; color: white;{% endif %}'>{% if value.is_running %}Up{% else %}Down{% endif %} {% if value.uptime %}({{ value.uptime }}){% endif %}</td>
+			<td><a href='#' class='service {{ service }} start'>Start</a></td>
+			<td><a href='#' class='service {{ service }} stop'>Stop</a></td>
+			</tr>
+		{% endfor %}
+	</table>
+
+<div id='service_console' style='font-size: 10px;'>&nbsp;</div>
+
+<script>
+$(document).ready(function(){
+	
+	$('.service').click(function(){
+
+		var data = $(this).attr('class').split(' ');
+
+		var url = '{{ site.domain }}/home/service/'+data[1]+'/';
+		$('#service_console').show()
+			.html('Ejecutando <b>'+data[2]+'</b> al servicio <b>'+data[1]+'</b> ');
+
+		$.post(url,{action: data[2]},function(response){ ;
+			if ( response.success ){
+				setTimeout(function(){ $('#servicesinfo').load('{{ site.domain }}/home/info/services/');}, 1000);
+				$('#service_console').show()
+					.append('OK.<br />');
+			}else{
+				alert("Algo falló en la ejecución del comando...");
+			}
+			alert(response.msg);
+			},'json');
+
+		}
+
+		return false;
+
+	});
+
+});
+</script>

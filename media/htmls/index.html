@@ -4,6 +4,14 @@
 
 {% block customjs %}
 <script>
+var ar_disk=null;
+var ar_mem=null;
+var ar_iface=null;
+var ar_services=null;
+var ar_sys=null;
+function services(){
+	$('#servicesinfo').load('{{ site.domain }}/home/info/services/');
+}
 function disk(){
 	$('#diskinfo').load('{{ site.domain }}/home/info/disk/');
 }
@@ -22,6 +30,23 @@ function cpu(){
 function iface(){
 	$('#ifaceinfo').load('{{ site.domain }}/home/info/iface/');
 }
+
+function start_autorefresh(){
+	ar_disk=setInterval('disk()', 10000);
+	ar_mem=setInterval('mem()', 10000);
+	ar_iface=setInterval('iface()', 10000);
+	ar_services=setInterval('services()', 2000);
+	ar_sys=setInterval('sys()', 10000);
+}
+
+function stop_autorefresh(){
+	clearInterval(ar_disk);
+	clearInterval(ar_mem);
+	clearInterval(ar_iface);
+	clearInterval(ar_services);
+	clearInterval(ar_sys);
+}
+
 $(document).ready(function(){
 
 	disk();
@@ -29,18 +54,30 @@ $(document).ready(function(){
 	cpu();
 	pci();
 	iface();
+	services();
 	sys();
 
-	setInterval('disk()', 10000);
-	setInterval('mem()', 10000);
-	setInterval('iface()', 10000);
-	setInterval('sys()', 10000);
+	$('#refresh').click(function(){
+		var c = $(this).attr('class');
+
+		if ( c == 'start' ){
+			start_autorefresh();
+			$(this).attr('class','stop')
+				.html('Parar Refresco Automático');
+		}else{
+			stop_autorefresh();
+			$(this).attr('class','start')
+				.html('Iniciar Refresco Automático');
+		}
+	});
+
 });
 </script>
 
 {% endblock %}
 
 {% block content %}
+<a href='#' id='refresh' class='start'>Activar Refresco automático</a>
 <div class='window border-all pos-left'>
 	<div class='frame-top font-1'>System Info</div>
 	<div id='sysinfo'><div class='loader center' style='width: 100px;'><span>Cargando...</span></div></div>
@@ -67,6 +104,10 @@ $(document).ready(function(){
 <div class='window border-all pos-left' style='width: 750px;'>
 	<div class='frame-top font-1'>PCI Info</div>
 	<div id='pciinfo'><div class='loader center' style='width: 100px;'><span>Cargando...</span></div></div>
+</div>
+<div class='window border-all pos-left' style='width: 250px;'>
+	<div class='frame-top font-1'>Services Info</div>
+	<div id='servicesinfo'><div class='loader center' style='width: 100px;'><span>Cargando...</span></div></div>
 </div>
 
 <div style='clear: both'>&nbsp;</div>
