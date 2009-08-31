@@ -77,7 +77,9 @@ $(document).ready(function(){
 {% endblock %}
 
 {% block content %}
-<a href='#' id='refresh' class='start'>Activar Refresco automático</a>
+<div>
+	<a href='#' id='refresh' class='start'>Activar Refresco automático</a>
+</div>
 <div class='window border-all pos-left'>
 	<div class='frame-top font-1'>System Info</div>
 	<div id='sysinfo'><div class='loader center' style='width: 100px;'><span>Cargando...</span></div></div>
@@ -101,7 +103,8 @@ $(document).ready(function(){
 	<div class='frame-top font-1'>Iface Info</div>
 	<div id='ifaceinfo'></div>
 </div>
-<div class='window border-all pos-left' style='width: 750px;'>
+
+<div class='window border-all pos-left' style='width: 750px; clear: both;'>
 	<div class='frame-top font-1'>PCI Info</div>
 	<div id='pciinfo'><div class='loader center' style='width: 100px;'><span>Cargando...</span></div></div>
 </div>

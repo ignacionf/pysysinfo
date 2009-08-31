@@ -44,7 +44,13 @@ $(document).ready(function(){
 		<div class='font-6' style='height: 45px;'>&nbsp;</div>
 	</div>
 
-	<div style='padding: 2px;' id='toolbar'>{% block tools %}{% endblock %}</div>
+	<div style='padding: 2px;' id='toolbar'>
+		<a href="/services/" class='boton'>Servicios</a>
+		<a href="/fw/" class='boton'>Firewall</a>
+		<a href="/users/" class='boton'>Usuarios</a>
+		<a href="/mails/" class='boton'>Mails</a>
+		{% block tools %}{% endblock %}
+	</div>
 
 	<div style='min-height: 380px; padding: 15px;' id='content'>
 	{% block content %}Caca{% endblock %}
