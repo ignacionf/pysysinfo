@@ -11,13 +11,30 @@
 
 <link rel="stylesheet" href="{{ media_url }}/css/main.css" type="text/css" />
 <link rel="stylesheet" href="{{ media_url }}/css/form.css" type="text/css" />
+<link rel="stylesheet" href="{{ media_url }}/css/jquery-css/jquery-ui.css" type="text/css" />
+
 {% block customcss %}{% endblock %}
 
 <script type="text/javascript" src="{{ media_url }}/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="{{ media_url }}/js/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="{{ media_url }}/js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="{{ media_url }}/js/tools.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
+	if ( document.documentElement.offsetHeight < window.innerHeight ){
+		var h = window.innerHeight - 35;
+		$("#footer").css("top",h+"px");
+	}
+
+	$('.close').click(redirto);
+	$('.add').click(redirto);
+	$('.save').click(function(){ $('form').submit(); return false; });
+
+
+	function redirto(){
+		window.location=$('a',this)[0].href;
+	}
 });
 </script>
 {% block customjs %}{% endblock %}
@@ -26,9 +43,9 @@ $(document).ready(function(){
 </head>
 <body>
 
-	<div class='border-bottom' style='vertical-align: bottom; margin-bottom: 10px;'>
+	<div class='border-bottom' style='vertical-align: bottom;'>
 		<div class='font-6 pos-left'>{{ site.name }}</div>
-		<div class='pos-right' style='height: 47px; padding-top: 27px;' id='botonera'>
+		<div class='list pos-right' style='height: 47px; padding-top: 27px;' id='botonera'>
 				<ul>
 				<li><a href="/">Home</a></li>
 				{% if request.user.is_authenticated %}
@@ -43,20 +60,25 @@ $(document).ready(function(){
 		</div>
 		<div class='font-6' style='height: 45px;'>&nbsp;</div>
 	</div>
+	<div class='pos-right list' style='text-align: right; width: 300px; clear: both; position: relative; top: -27px;'>
+		<ul>
+		<li><a href="/home/">Servicios</a></li>
+		| <li><a href="/fw/">Firewall</a></li>
+		| <li><a href="/users/">Usuarios</a></li>
+		| <li><a href="/mails/">Mails</a></li>
+		</ul>
+	</div>
+	
 
-	<div style='padding: 2px;' id='toolbar'>
-		<a href="/services/" class='boton'>Servicios</a>
-		<a href="/fw/" class='boton'>Firewall</a>
-		<a href="/users/" class='boton'>Usuarios</a>
-		<a href="/mails/" class='boton'>Mails</a>
+	<div style='padding: 2px; clear: both;' id='toolbar'>
 		{% block tools %}{% endblock %}
 	</div>
 
 	<div style='min-height: 380px; padding: 15px;' id='content'>
-	{% block content %}Caca{% endblock %}
+	{% block content %}{% endblock %}
 	</div>
 
-	<div class='border-all' style='margin-top: 10px;' id='footer'>
+	<div class='border-all ui-corner-all' style='margin-top: 10px; font-weight: bold;' id='footer'>
 		{{ site.name }} || Copyleft © {{ site.name }} || 2009
 	</div>
 

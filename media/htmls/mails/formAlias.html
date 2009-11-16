@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block customcss %} {% endblock %}
+
+{% block customjs %}
+<script>
+$(document).ready(function(){
+
+	{% if errors %}alert("Oops... {{ errors }}");{%endif %}
+});
+</script>
+
+{% endblock %}
+
+{% block tools %}
+
+	{% include "mails/menu.html" %}
+{% endblock %}
+{% block content %}
+<div class='window border-all ui-corner-all' style='width: 600px; margin: auto;'>
+	<div class='frame-top font-1'>{% if title %}{{ title }}{% else %}Nuevo Dominio de Mail{% endif %}
+
+		<span class='pos-right close'>
+		<a href='{{ site.domain }}/mails/'>Cancelar</a>
+		</span>
+		<span class='pos-right save'>
+		<a href='#doAdd/' id='boton_salvar'>Salvar</a>
+		</span>
+	</div>
+	<div id='mails_table' style='padding: 20px;'>
+		{% if errors %}
+		<div class='errors ui-corner-all' style='margin-top: 10px;'>{{ errors }}</div>
+		{% endif %}
+		{% if form.errors %}
+		<div class='errors ui-corner-all' style='margin-top: 10px;'>
+			<ul>
+			{% for f in form %}
+				{% if f.errors %}
+				<li><strong>{{ f.label }}</strong> : {{ f.errors.0 }}</li>
+				{% endif %}
+			{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
+		<form method='POST'>
+		<table style='padding: 5px; margin: auto; text-align: left;'>
+			{% for f in form %}
+				<tr>
+					<th>{{ f.label_tag }}</th><td style='width: 20px;'>:</td>
+					<td {% if f.errors %}class='input_error'{% endif %}>{{ f }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+		</form>
+	</div>
+</div>
+<div style='clear: both'>&nbsp;</div>
+
+{% endblock %}

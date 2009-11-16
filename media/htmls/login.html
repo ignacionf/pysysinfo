@@ -11,6 +11,7 @@
 
 <link rel="stylesheet" href="{{ media_url }}/css/main.css" type="text/css" />
 <link rel="stylesheet" href="{{ media_url }}/css/form.css" type="text/css" />
+<link rel="stylesheet" href="{{ media_url }}/css/jquery-css/jquery-ui.css" type="text/css" />
 
 <style type="text/css">
 input[type="text"], input[type="password"] {
@@ -24,7 +25,7 @@ input[type="text"], input[type="password"] {
 <body>
 	<form method='POST' action=''>	
 	{% if next %}<input type='hidden' name='next' value='{{ next }}' />{% endif %}
-	<div class='border-all' style='width: 400px; margin: auto; padding: 10px; margin-top: 100px'>
+	<div class='border-all ui-corner-all' style='width: 400px; margin: auto; padding: 10px; margin-top: 100px'>
 		<span class='font-4'>Ingresar</span>
 		<table style='margin: auto; margin-top: 20px; text-align: right;'>
 			{{ form }}
@@ -36,9 +37,5 @@ input[type="text"], input[type="password"] {
 		</table>
 	</div>
 	</form>
-	<div class='border-all font-1' style='width: 400px; margin: auto; padding: 10px; margin-top: 20px;'>
-		<a href='{{ site.domain }}home/index/'>Home</a> ||
-		<a href='{{ site.domain }}home/lostPassword/'>  Me olvidé mi clave.</a></td>
-	</div>
 </body>
 </html>

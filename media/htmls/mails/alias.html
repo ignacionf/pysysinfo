@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block customcss %} {% endblock %}
+
+{% block customjs %}
+<script>
+$(document).ready(function(){
+
+	$('#msg_info').draggable();
+	$('#msg_info #boton_cancelar').click(closeMsg);
+	$('#msg_info #boton_aceptar').click(function(){ window.location='{{ site.domain }}/mails/alias/delete/'+$(this).attr('id_data')+'/'; return false; });
+
+	function closeMsg(){
+		$.modal.close();
+		$('#msg_info').hide();
+		$('#main').fadeTo("slow", 1);
+		return false;
+	}
+
+	$('.delete').click(function(){
+
+		var id = $(this).attr('id').substr(3);
+		var alias = $("[field='alias']","#data_"+id).html();
+		var destination = $("[field='destination']","#data_"+id).html();
+		$('#msg_info #msg_text').html("Desea eliminar de forma definitiva el alias de mail <b>"+alias+":"+destination+"</b>");
+		$('#msg_info').modal({position: [60,(window.innerWidth/2)-200]});
+		$('#msg_info').show();
+		$('#main').fadeTo("slow", 0.33);
+		$("#boton_aceptar").attr("id_data",id);
+
+		return false;
+
+	});
+
+});
+</script>
+
+{% endblock %}
+
+{% block tools %}
+	{% include "mails/menu.html" %}
+{% endblock %}
+{% block content %}
+
+<div class='window border-all ui-corner-all' style='display: none; width: 400px; margin: auto; position: absolute;' id='msg_info'>
+	<div class='frame-top font-1 ui-corner-top' style='padding-left: 25%;'>Atención!!!
+		<span class='pos-right close'>
+		<a href='#cerrar' id='boton_cancelar'>Cancelar</a>
+		</span>
+		<span class='pos-right save'>
+		<a href='#cerrar' id='boton_aceptar'>Aceptar</a>
+		</span>
+	</div>
+	<div class='font-1' style='margin: 30px 10px;' id='msg_text'> </div>
+</div>
+
+<div class='window border-all ui-corner-all' style='width: 600px; margin: auto;' id='main'>
+	<div class='frame-top font-1'>Alias de Mail
+		<span class='pos-right add'>
+		<a href='{{ site.domain }}/mails/alias/add/'>Agregar Alias</a>
+		</span>
+	</div>
+	<div id='users_table'>
+		<table style='padding: 5px; width: 80%; margin: auto; text-align: center;'>
+			<tr>
+				<th style=''>Dominio</th>
+				<th style='text-align: center;'>Destination</th>
+				<th style='width: 60px;'></th>
+			</tr>
+			{% for d in data %}
+
+			<tr id='data_{{ d.id }}'>
+				<td style='text-align: right;' field='alias'>{{ d.alias }}</td>
+				<td style='text-align: center;' field='destination'>{{ d.destination }}@{{ d.destination.domain }}</td>
+				<td style='width: 60px;'>
+					<a href='#delete' class='delete' id='id_{{ d.id }}'><img src='{{ media_url }}/images/delete-10x10.png' style='border: 0;' /></a>
+				</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+</div>
+<div style='clear: both'>&nbsp;</div>
+
+{% endblock %}

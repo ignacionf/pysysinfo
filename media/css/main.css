@@ -7,6 +7,10 @@ body{
 	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+#footer {
+	position: absolute;
+	width: 98%;
+}
 a { color: #666; }
 
 a:link{text-decoration:none;}
@@ -28,13 +32,14 @@ a:active{text-decoration:none;}
 .border-bottom { border-bottom: 1px solid #E5E5E5; }
 .border-left { border-left: 1px solid #E5E5E5; }
 .border-all{ border: 1px solid #E5E5E5; }
+.border-all{ border: 1px solid #FBDCA3; }
 
 .pos-left { float: left; display: inline; }
 .pos-right { float: right; display: inline; }
 
-#botonera ul{ list-style-type:none;margin:0; padding-left: 10px;}
-#botonera ul li{ display:inline;padding:0 .5em 0 .5em;}
-#botonera a:hover{text-decoration: none;}
+.list ul{ list-style-type:none;margin:0; padding-left: 10px;}
+.list ul li{ display:inline;padding:0 .5em 0 .5em;}
+.list a:hover{text-decoration: none;}
 
 .title { font-weight: bold; }
 
@@ -43,39 +48,30 @@ a:active{text-decoration:none;}
 	font-weight: bold;
 }
 .errorlist {
-	border: 1px solid red;
-	list-style-type:none;
 	margin:0.5em 1.1em 0 0;
 	padding: 5px;
 }
-.errorlist li{ display:inline;}
 
 th {
 	text-align: right;
 	font-weight: bold;
 }
 
-.errors, .errorlist, .ok , .info {
+.errors, .ok , .info {
 	width: 90%;
 	padding: 5px 5px 5px 20px;
 	margin: auto;
 	text-align: left;
-	display: none;
 }
+
 .ok, .info {
 	border: 1px solid #e6db55;
 	background-color: #fffbcc;
 	text-align: center;
 }
-.errors, .errorlist {
-	border: 1px solid #dd1144;
-	background-color: #ffeeee;
-}
-
-.errorlist {
-	display: block;
-	text-align: center;
-	margin-bottom: 20px;
+.errors {
+	border: 1px solid #cd0a0a;
+	background-color: #fef1ec;
 }
 
 .table_admin {
@@ -113,10 +109,51 @@ th {
 	min-height: 150px;
 	padding: 0;
 	margin: 10px;
+	background-color: white;
 }
 
 .window .frame-top {
-	padding: 1px;
-	background-color: #f5f5f5;
+	padding: 0;
+	/* background-color: #f5f5f5; */
+	background-color: #FCE9BE;
+	font-size: 16px;
+	text-align: left;
+	Padding-left: 40%;
+	font-weight: bold;
 }
 
+.window .frame-top span {
+	background-color: #FBDCA3;
+	border-left: 2px solid #FFF1DB;
+	padding: 0 10px;
+}
+.window .frame-top span:hover {
+	background-color: #FCE6AC;
+	cursor: pointer;
+}
+
+.window span.add {
+	padding-left: 20px;
+	background: #FBDCA3 url('/static/images/add-14x10.png') no-repeat center left;
+}
+
+.window span.save {
+	padding-left: 20px;
+	background: #FBDCA3 url('/static/images/ok-14x10.png') no-repeat center left;
+}
+.window span.close {
+	padding-left: 20px;
+	background: #FBDCA3 url('/static/images/close-14x10.png') no-repeat center left;
+}
+.window .frame-top span a {
+	font-size: 11px;
+	position: relative;
+	top: -2px;
+}
+.window .frame-top span a:hover {
+	text-decoration:none;
+}	
+
+img {
+	border: 0;
+}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load mailstags %}
+
+{% block customcss %} {% endblock %}
+
+{% block customjs %}
+<script>
+$(document).ready(function(){
+});
+</script>
+
+{% endblock %}
+
+{% block tools %}
+	{% include "mails/menu.html" %}
+{% endblock %}
+{% block content %}
+
+<div class='window border-all ui-corner-all' style='display: none; width: 400px; margin: auto; position: absolute;' id='msg_info'>
+	<div class='frame-top font-1 ui-corner-top' style='padding-left: 25%;'>Atención!!!
+		<span class='pos-right close'>
+		<a href='#cerrar' id='boton_cancelar'>Cancelar</a>
+		</span>
+		<span class='pos-right save'>
+		<a href='#cerrar' id='boton_aceptar'>Aceptar</a>
+		</span>
+	</div>
+	<div class='font-1' style='margin: 30px 10px;' id='msg_text'> </div>
+</div>
+
+<div class='window border-all ui-corner-all' style='width: 90%; margin: auto;' id='main'>
+	<div class='frame-top font-1'>Cola de Mensajes (Queue) </div>
+	<div id='users_table'>
+		<table style='padding: 5px; width: 100%; margin: auto; text-align: center;'>
+			<tr>
+				<th style=''>MailID</th>
+				<th style='text-align: center;'>Tamaño</th>
+				<th style='text-align: center;'>Fecha</th>
+				<th style='text-align: center;'>Sender</th>
+				<th style='text-align: center;'>Recipient(s)</th>
+				<th style='text-align: center;'>Error</th>
+			</tr>
+			{% for d in data %}
+
+			<tr id='data_{{ d.id }}' style='vertical-align: top;'>
+				<td field='mid'>{{ d.mid}}</td>
+				<td field='size'>{{ d.size}}</td>
+				<td field='datetime'>{{ d.datetime}}</td>
+				<td field='sender'><a href="mailto:{{ d.sender }}">{{ d.sender|truncate:15}}</a></td>
+				<td field='recipients'> {% for recipient in d.recipients %}<a href="mailto:{{ recipient }}">{{ recipient|truncate:15 }}</a><br />{% endfor %}</td>
+				<td field='error' style="max-width: 300px;">{% autoescape off %}{{ d.error|urlize }}{% endautoescape %}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+</div>
+<div style='clear: both'>&nbsp;</div>
+
+{% endblock %}

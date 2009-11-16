@@ -58,15 +58,15 @@ $(document).ready(function(){
 	sys();
 
 	$('#refresh').click(function(){
-		var c = $(this).attr('class');
+		var c = $(this).attr('class').substr(0,5);
 
 		if ( c == 'start' ){
 			start_autorefresh();
-			$(this).attr('class','stop')
+			$(this).attr('class','stop boton')
 				.html('Parar Refresco Automático');
 		}else{
 			stop_autorefresh();
-			$(this).attr('class','start')
+			$(this).attr('class','start boton')
 				.html('Iniciar Refresco Automático');
 		}
 	});
@@ -76,40 +76,41 @@ $(document).ready(function(){
 
 {% endblock %}
 
+{% block tools %}
+	<a href='#' id='refresh' class='start boton'>Activar Refresco automático</a>
+{% endblock %}
+
 {% block content %}
-<div>
-	<a href='#' id='refresh' class='start'>Activar Refresco automático</a>
-</div>
-<div class='window border-all pos-left'>
-	<div class='frame-top font-1'>System Info</div>
+<div class='window border-all pos-left ui-corner-all'>
+	<div class='frame-top font-1 ui-corner-top'>System Info</div>
 	<div id='sysinfo'><div class='loader center' style='width: 100px;'><span>Cargando...</span></div></div>
 </div>
-<div class='window border-all pos-left' style='width: 450px;'>
-	<div class='frame-top font-1'>Mem Info</div>
+<div class='window border-all pos-left ui-corner-all' style='width: 450px;'>
+	<div class='frame-top font-1 ui-corner-top'>Mem Info</div>
 	<div id='meminfo'></div>
 </div>
 
-<div class='window border-all pos-left' style='width: 400px;'>
-	<div class='frame-top font-1'>CPU Info</div>
+<div class='window border-all pos-left ui-corner-all' style='width: 400px;'>
+	<div class='frame-top font-1 ui-corner-top'>CPU Info</div>
 	<div id='cpuinfo'><div class='loader center' style='width: 100px;'><span>Cargando...</span></div></div>
 </div>
 
-<div class='window border-all pos-left' style='width: 500px;'>
-	<div class='frame-top font-1'>Disk Info</div>
+<div class='window border-all pos-left ui-corner-all' style='width: 500px;'>
+	<div class='frame-top font-1 ui-corner-top'>Disk Info</div>
 	<div id='diskinfo'></div>
 </div>
 
-<div class='window border-all pos-left' style='width: 500px;'>
-	<div class='frame-top font-1'>Iface Info</div>
+<div class='window border-all pos-left ui-corner-all' style='width: 500px;'>
+	<div class='frame-top font-1 ui-corner-top'>Iface Info</div>
 	<div id='ifaceinfo'></div>
 </div>
 
-<div class='window border-all pos-left' style='width: 750px; clear: both;'>
-	<div class='frame-top font-1'>PCI Info</div>
+<div class='window border-all pos-left ui-corner-all' style='width: 750px; clear: both;'>
+	<div class='frame-top font-1 ui-corner-top'>PCI Info</div>
 	<div id='pciinfo'><div class='loader center' style='width: 100px;'><span>Cargando...</span></div></div>
 </div>
-<div class='window border-all pos-left' style='width: 250px;'>
-	<div class='frame-top font-1'>Services Info</div>
+<div class='window border-all pos-left ui-corner-all' style='width: 250px;'>
+	<div class='frame-top font-1 ui-corner-top'>Services Info</div>
 	<div id='servicesinfo'><div class='loader center' style='width: 100px;'><span>Cargando...</span></div></div>
 </div>
 

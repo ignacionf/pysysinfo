@@ -18,7 +18,7 @@ input[type="text"]:focus, input[type="submit"]:focus, input[type="password"]:foc
 
 .boton, .boton-disabled {
 	-moz-border-radius: 4px;
-	border: 1px solid gray;
+	border: 1px solid #C2E8FD;
 	padding: 2px 10px;
 	margin-top: 10px;
 	color: #666;
@@ -27,11 +27,17 @@ input[type="text"]:focus, input[type="submit"]:focus, input[type="password"]:foc
 .boton:hover, .boton-selected {
 	color: #222;
 	text-decoration: none;
+	background-color: #E0F4FF;
 }
 
 .boton-disabled {
 	border: 1px solid #666;
 	background-color: #f5f5f5;
+}
+
+.input_error input {
+	border: 1px solid #dd1144;
+	background-color: #ffeeee;
 }
 
 fieldset.formulario { width: 400px; padding: 20px;}

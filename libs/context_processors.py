@@ -11,6 +11,7 @@ def globales(request):
 		'site': site,
 		'media_url': "%s/%s" %(site.domain, settings.MEDIA_URL),
 		'request': request,
+		'path': "%s%s" %(settings.URL_PATH_BASE,request.META['PATH_INFO']),
 		'auth': request.user.is_authenticated(),
 		'now': datetime.now(),
 		}

@@ -11,10 +11,10 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = '/var/www/pysysinfo/db/sysinfo.db'             # Or path to database file if using sqlite3.
-DATABASE_USER = ''             # Not used with sqlite3.
-DATABASE_PASSWORD = ''         # Not used with sqlite3.
+DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_NAME = 'sysinfo'             # Or path to database file if using sqlite3.
+DATABASE_USER = 'root'             # Not used with sqlite3.
+DATABASE_PASSWORD = 'caca'         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 
@@ -82,6 +82,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
+    'users',
+    'mails',
+    'fw',
+    'sysinfo',
 )
 
 # configuración para especificar el path de la url
@@ -95,3 +99,5 @@ URL_PATH_BASE=''
 
 LOGIN_URL='%s/home/login/' % URL_PATH_BASE
 LOGIN_REDIRECT_URL='%s/home/index/' % URL_PATH_BASE
+
+SYSINFO_PROGRESSBAR={'max': 80, 'alert': 50}

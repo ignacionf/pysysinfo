@@ -3,7 +3,7 @@
 
 		{% for service,value in info.items %}
 		<tr><th align='right'>{{ service }}</th><td> : </td>
-			<td align='center' style='font-weight: bold; background-color: {% if value.is_running %}#CAE6AD;{% else %}#F26160; color: white;{% endif %}'>{% if value.is_running %}Up{% else %}Down{% endif %} {% if value.uptime %}({{ value.uptime }}){% endif %}</td>
+			<td align='center' class='ui-corner-all' style='font-weight: bold; background-color: {% if value.is_running %}#CAE6AD;{% else %}#F26160; color: white;{% endif %}'>{% if value.is_running %}Up{% else %}Down{% endif %} {% if value.uptime %}({{ value.uptime }}){% endif %}</td>
 			<td><a href='#' class='service {{ service }} start'>Start</a></td>
 			<td><a href='#' class='service {{ service }} stop'>Stop</a></td>
 			</tr>
