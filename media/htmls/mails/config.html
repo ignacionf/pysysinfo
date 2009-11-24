@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load mailstags %}
+
+{% block customcss %} {% endblock %}
+
+{% block customjs %}
+<script>
+$(document).ready(function(){
+});
+</script>
+
+{% endblock %}
+
+{% block tools %}
+	{% include "mails/menu.html" %}
+{% endblock %}
+{% block content %}
+
+<div class='window border-all ui-corner-all' style='width: 50%; margin: auto;' id='main'>
+<div class='frame-top font-1'>configuración del sistema de mail</div>
+<div style='width: 100%; padding: 10px; text-align: left;'>
+
+<b>En una consola mysql:</b>
+<pre>
+GRANT SELECT ON {{ db }}.*
+	TO {{ muser }}@localhost
+	IDENTIFIED BY '{{ mpass }}';
+</pre>
+
+<b>/etc/postfix/sql/users.cf</b>
+<pre style='padding: 5px;'>
+user = {{ muser }}
+password = {{ mpass }}
+dbname =  {{ db }}
+hosts = 127.0.0.1
+query = SELECT CONCAT(users_usuario.homedir,'@', mails_mailvirtualdomain.domain,'/', users_usuario.maildir) AS email 
+	FROM users_usuario 
+	LEFT JOIN mails_mailvirtualdomain ON users_usuario.domain_id = mails_mailvirtualdomain.id 
+	WHERE CONCAT(users_usuario.username, '@', mails_mailvirtualdomain.domain) = '%s'
+</pre>
+
+<b>/etc/postfix/sql/alias.cf</b>
+<pre style='padding: 5px;'>
+user = {{ muser }}
+password = {{ mpass }}
+dbname =  {{ db }}
+hosts = 127.0.0.1
+query = select CONCAT(users_usuario.username, '@', mails_mailvirtualdomain.domain) 
+	FROM users_usuario
+	LEFT JOIN (mails_aliasmail CROSS JOIN mails_mailvirtualdomain)
+	ON (mails_aliasmail.destination_id = users_usuario.id
+		AND mails_mailvirtualdomain.id = users_usuario.domain_id)
+	WHERE mails_aliasmail.alias = '%s'
+
+</pre>
+
+<b>/etc/postfix/sql/uid.cf</b>
+<pre style='padding: 5px;'>
+user = {{ muser }}
+password = {{ mpass }}
+dbname =  {{ db }}
+hosts = 127.0.0.1
+query = SELECT uid
+	FROM users_usuario
+	LEFT JOIN mails_mailvirtualdomain
+	ON users_usuario.domain_id = mails_mailvirtualdomain.id
+	WHERE CONCAT(users_usuario.username, '@', mails_mailvirtualdomain.domain) = '%s'
+</pre>
+
+<b>/etc/postfix/sql/gid.cf</b>
+<pre style='padding: 5px;'>
+user = {{ muser }}
+password = {{ mpass }}
+dbname =  {{ db }}
+hosts = 127.0.0.1
+query = SELECT gid
+	FROM users_usuario
+	LEFT JOIN mails_mailvirtualdomain
+	ON users_usuario.domain_id = mails_mailvirtualdomain.id
+	WHERE CONCAT(users_usuario.username, '@', mails_mailvirtualdomain.domain) = '%s'
+</pre>
+
+<b>/etc/postfix/sql/transports.cf</b>
+<pre style='padding: 5px;'>
+user = {{ muser }}
+password = {{ mpass }}
+dbname =  {{ db }}
+hosts = 127.0.0.1
+query = SELECT destination AS transport FROM mails_mailvirtualdomain WHERE domain='%s'
+</pre>
+
+<b>/etc/postfix/sql/domains.cf</b>
+<pre style='padding: 5px;'>
+user = {{ muser }}
+password = {{ mpass }}
+dbname =  {{ db }}
+hosts = 127.0.0.1
+query = SELECT domain AS virtual FROM mails_mailvirtualdomain WHERE domain='%s'
+</pre>
+
+<b>En una consola como root:</b>
+<pre>
+postconf -e 'virtual_alias_domains =' 
+postconf -e ' virtual_alias_maps = proxy:mysql:/etc/postfix/sql/alias.cf'
+postconf -e 'virtual_alias_domains =' 
+postconf -e 'virtual_mailbox_domains = mysql:/etc/postfix/sql/domains.cf'
+postconf -e 'transport_maps = proxy:mysql:/etc/postfix/sql/transports.cf'
+postconf -e virtual_mailbox_maps=mysql:/etc/postfix/sql/users.cf
+postconf -e virtual_mailbox_base = /
+postconf -e virtual_gid_maps = mysql:/etc/postfix/sql/gid.cf
+postconf -e virtual_uid_maps = mysql:/etc/postfix/sql/uid.cf
+postconf -e home_mailbox = Maildir/
+chmod 1777 {{ home }}
+chown root:postfix /etc/postfix/sql -R
+chown 0750 /etc/postfix/sql -R
+postfix stop && postfix start
+</pre>
+
+</div>
+</div>
+
+<div style='clear: both'>&nbsp;</div>
+
+{% endblock %}

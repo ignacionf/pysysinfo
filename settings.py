@@ -101,3 +101,4 @@ LOGIN_URL='%s/home/login/' % URL_PATH_BASE
 LOGIN_REDIRECT_URL='%s/home/index/' % URL_PATH_BASE
 
 SYSINFO_PROGRESSBAR={'max': 80, 'alert': 50}
+HOMEDIR='/home'

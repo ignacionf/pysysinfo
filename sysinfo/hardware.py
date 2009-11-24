@@ -81,26 +81,29 @@ class init:
 
 		PCI_DIR='/sys/bus/pci/devices/'
 		pcis=[]
-		for pci in os.listdir(PCI_DIR):
-			dir='%s/%s' % (PCI_DIR,pci)
-
-			vendor = self.get_vendor(open('%s/vendor' % dir ,'r').read()[2:-1])
-			device = self.get_device(open('%s/device' % dir,'r').read()[2:-1])
-			subsys_device = open('%s/subsystem_device' % dir,'r').read()[2:-1]
-			subsys_vendor = open('%s/subsystem_vendor' % dir,'r').read()[2:-1]
-			class_key = open('%s/class' % dir,'r').read()[2:-1]
-
-			class_id=class_key[0:2]
-			subclass_id=class_key[2:4]
-
-			class_name=self.get_class(class_id)
-			subclass_name=self.get_subclass(class_id, subclass_id)
-
-			pcis.append({
-				'bus': pci, 'dir': dir, 'vendor': vendor, 'device': device,
-				'subsys_device': subsys_device, 'subsys_vendor': subsys_vendor,
-				'class': class_name, 'subclass': subclass_name,
-			})
+		try:
+			for pci in os.listdir(PCI_DIR):
+				dir='%s/%s' % (PCI_DIR,pci)
+	
+				vendor = self.get_vendor(open('%s/vendor' % dir ,'r').read()[2:-1])
+				device = self.get_device(open('%s/device' % dir,'r').read()[2:-1])
+				subsys_device = open('%s/subsystem_device' % dir,'r').read()[2:-1]
+				subsys_vendor = open('%s/subsystem_vendor' % dir,'r').read()[2:-1]
+				class_key = open('%s/class' % dir,'r').read()[2:-1]
+	
+				class_id=class_key[0:2]
+				subclass_id=class_key[2:4]
+	
+				class_name=self.get_class(class_id)
+				subclass_name=self.get_subclass(class_id, subclass_id)
+	
+				pcis.append({
+					'bus': pci, 'dir': dir, 'vendor': vendor, 'device': device,
+					'subsys_device': subsys_device, 'subsys_vendor': subsys_vendor,
+					'class': class_name, 'subclass': subclass_name,
+				})
+		except:
+			pass
 
 			
 		return pcis
@@ -170,7 +173,7 @@ class init:
 	
 	def ifaceinfo(self):
 
-		match = compile('\s+(?P<iface>\S+):\s?\s?\s?\s?\s?\s?\s?'
+		match = compile('(?P<iface>\S+):\s?\s?\s?\s?\s?\s?\s?'
 			'(?P<rx_bytes>\d+)\s+(?P<rx_packets>\d+)\s+(?P<rx_errs>\d+)\s+(?P<rx_drop>\d+)'
 			'\s+(?P<rx_fifo>\d+)\s+(?P<rx_frame>\d+)\s+(?P<rx_compressed>\d+)\s+(?P<rx_multicast>\d+)'
 			'\s+(?P<tx_bytes>\d+)\s+(?P<tx_packets>\d+)\s+(?P<tx_errs>\d+)\s+(?P<tx_drop>\d+)'
@@ -179,7 +182,7 @@ class init:
 		try:
 			f = open(FILES['nicinfo'])
 			for i in f.readlines():
-				m = match.match(i)
+				m = match.match(i.strip())
 				if m:
 					data=m.groupdict()
 					data['rx_bytes_human']=self.bytes_to_human(m.group('rx_bytes'))

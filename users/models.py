@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from django.conf import settings
 import os
 
 from mails.models import *
@@ -37,6 +38,7 @@ class Grupo(models.Model):
 class Usuario(models.Model):
 	username = models.CharField('Nombre del Usuario',max_length=200, unique=True)
 	clear = models.CharField('Password',max_length=200)
+#	password = models.CharField('Password (MD5)',max_length=200)
 	name = models.CharField('Nombre Completo',max_length=200)
 	uid = models.IntegerField('Identificador de Usuario',default=100, unique=True)
 	gid = models.IntegerField(default=99, verbose_name="Identificador de grupo")
@@ -68,7 +70,7 @@ class Usuario(models.Model):
 	def save(self):
 
 		if self.homedir == '[auto gen]':
-			self.homedir="/home/"+self.username
+			self.homedir="%s/%s@%s" % (settings.HOMEDIR,self.username,self.domain)
 
 		try:
 			if self.uid == 100:

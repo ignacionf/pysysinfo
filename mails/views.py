@@ -118,3 +118,36 @@ def mailq(response, template_name):
 	o={'data': Mailq().parse()}
 
 	return render_to_response(template_name, o, context_instance=RequestContext(response))
+
+######################################
+### Config
+
+from random import choice
+import string
+
+@login_required
+def config(response, template_name):
+	o={'muser': getRandomChar(), 'mpass': getRandomChar(), 'db': settings.DATABASE_NAME, 'home': settings.HOMEDIR}
+
+	return render_to_response(template_name, o, context_instance=RequestContext(response))
+
+def getRandomChar(l=10):
+	chars = string.letters + string.digits
+	r=''
+	for i in range(0, l):
+		r+=choice(chars)
+	
+	return r
+
+######################################
+### logs
+
+from sysinfo import logs
+
+@login_required
+def log(response, template_name):
+	o={'logs': logs.init().mail()}
+
+	return render_to_response(template_name, o, context_instance=RequestContext(response))
+
+

@@ -1,0 +1,11 @@
+.fatal {
+	color: #EF4335;
+	font-weight: bold;
+}
+
+.warning {
+	color: #F68B36;
+}
+.normal {
+	color: #519548 ;
+}

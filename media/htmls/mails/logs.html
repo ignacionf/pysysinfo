@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load mailstags %}
+
+{% block customcss %}
+<link rel="stylesheet" href="{{ media_url }}/css/logs.css" type="text/css" />
+{% endblock %}
+
+{% block customjs %}
+<script>
+$(document).ready(function(){
+});
+</script>
+
+{% endblock %}
+
+{% block tools %}
+	{% include "mails/menu.html" %}
+{% endblock %}
+{% block content %}
+
+<div class='window border-all ui-corner-all' style='width: 90%; margin: auto;' id='main'>
+	<div class='frame-top font-1'>Logs del servidor de Mail</div>
+	<table style='text-align: left; vertical-align: top;'>
+		{% for log in logs %}
+			<tr style='vertical-align: top;'>
+				<td style='width: 130px;'> {% ifchanged %}{{ log.date }}{% endifchanged %}</td>
+				<td style='width: 130px;'>{{ log.daemon}}[{{ log.pid }}]</td>
+				<td>
+					<label class='{% if log.info.status %}{{ log.info.status }}{% else %}normal{% endif %}'>{{ log.info.msg }}</label>
+						{% if log.info.data %}
+						[
+							{% for key, value in log.info.data.items %}
+							{% if key %} {{ key }}={{ value }},{% endif %}
+							{% endfor %}
+						]
+						{% endif %}
+			</tr>
+		{% empty %}
+			<tr><td colspan=3>no hay logs</td></tr>
+		{% endfor %}
+	</table>
+</div>
+<div style='clear: both'>&nbsp;</div>
+
+{% endblock %}

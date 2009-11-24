@@ -5,7 +5,7 @@ from django.db import models
 # Create your models here.
 class MailVirtualDomain(models.Model):
 	domain = models.CharField('Dominio',max_length=200, unique=True)
-	destination = models.CharField('Destino',max_length=200,default="maildrop:")
+	destination = models.CharField('Destino',max_length=200,default="virtual")
 	def __str__(self):
 		return self.domain
 	

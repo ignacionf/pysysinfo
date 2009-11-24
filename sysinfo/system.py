@@ -32,11 +32,11 @@ class init:
 			
 	
 	def __version_parse(self,line):
-		com=compile(r"(\S+) version (\S+) \((.*)\) \((\S+)\) \((.*)\) #(\d+) (\S+) (.*)")
+		com=compile(r"(\S+) version (\S+) \((.*)\) \((.*) \((.*)\) #(\d+) (\S+) (.*)")
 		g=com.match(line).groups()
 
 		r={'systype': g[0], 'version': g[1], 'compile_number': g[5], 'MP': g[6],
-			'compile_date': g[7], 'compile_author': g[3], 'compile_system': g[2],
+			'compile_date': g[7], 'compile_author': g[3][:-1], 'compile_system': g[2],
 			'compile_base': g[4] }
 		return r
 	
@@ -105,7 +105,7 @@ class init:
 		avg = (100 * (load[1]-load[0]) ) / ( total[1] - total[0] )
 
 		return avg
-	\
+
 	def meminfo(self):
 
 		fields = ('MemTotal','MemFree','Buffers','Cached','SwapTotal','SwapFree')
@@ -131,6 +131,9 @@ class init:
 		contents['membuffersavg']=(contents['buffers'] * 100)/contents['memtotal']
 
 		contents['swapused']=contents['swaptotal']-contents['swapfree']
-		contents['swapavg']=(contents['swapused'] * 100)/contents['swaptotal']
+		try:
+			contents['swapavg']=(contents['swapused'] * 100)/contents['swaptotal']
+		except ZeroDivisionError:
+			contents['swapavg']=0
 
 		return contents

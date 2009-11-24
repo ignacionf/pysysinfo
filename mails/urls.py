@@ -11,5 +11,7 @@ urlpatterns = patterns('',
 	(r'^alias/delete/(?P<id>\d+)/$', 'mails.views.deleteAlias'),
 
 	(r'^mailq/$', 'mails.views.mailq', {'template_name': 'mails/mailq.html'}),
+	(r'^config/$', 'mails.views.config', {'template_name': 'mails/config.html'}),
+	(r'^log/$', 'mails.views.log', {'template_name': 'mails/logs.html'}),
 
 )
