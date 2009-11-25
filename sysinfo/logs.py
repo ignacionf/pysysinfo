@@ -3,6 +3,7 @@
 from re import compile
 from datetime import datetime
 import time
+import hashlib
 
 from sysinfo.config import FILES
 
@@ -29,7 +30,7 @@ class init:
 					msg = {}
 					for i in msg_matchs[0].findall(info['msg'].replace(',','')):
 						if i[0] != '' and i[0] != "'":
-							msg[i[0]]=i[1]
+							msg[i[0].strip()]=i[1].strip()
 
 					if msg != {}:
 						info['data']=msg
@@ -45,6 +46,7 @@ class init:
 						'hostname': m.group("hostname"),
 						'daemon': m.group("daemon"),
 						'pid': m.group("pid"),
+						'id__log':hashlib.md5(line).hexdigest(),
 						'info': info})
 
 		return self.__logMail

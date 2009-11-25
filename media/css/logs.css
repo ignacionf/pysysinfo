@@ -9,3 +9,20 @@
 .normal {
 	color: #519548 ;
 }
+
+.moreinfo {
+	border: 1px solid #f68b36;
+	background-color: white;
+	color: #666666;
+	padding: 10px;
+	width: 400px;
+	text-align: justifty;
+	display: none;
+	position: absolute;
+	margin: auto;
+	font-weight: bold;
+}
+.mailid {
+	color: #493736;
+	font-weight: bold;
+}

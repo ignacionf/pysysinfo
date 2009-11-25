@@ -12,6 +12,6 @@ urlpatterns = patterns('',
 	(r'^%shome/' % settings.URL_PATH_BASE, include('home.urls')),
 	(r'^%susers/' % settings.URL_PATH_BASE, include('users.urls')),
 	(r'^%smails/' % settings.URL_PATH_BASE, include('mails.urls')),
-	(r'^%sfw/' % settings.URL_PATH_BASE, include('fw.urls')),
+#	(r'^%sfw/' % settings.URL_PATH_BASE, include('fw.urls')),
 	(r'^%s__admin/(.*)' % settings.URL_PATH_BASE, admin.site.root),
 )

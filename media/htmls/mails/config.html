@@ -98,6 +98,20 @@ hosts = 127.0.0.1
 query = SELECT domain AS virtual FROM mails_mailvirtualdomain WHERE domain='%s'
 </pre>
 
+<b>/etc/postfix/sasl/smtpd.conf</b>
+<pre style='padding: 5px;'>
+pwcheck_method: auxprop
+auxprop_plugin: sql login plain
+mech_list: plain login
+
+sql_engine: mysql
+sql_hostnames: localhost
+sql_user: {{ muser }}
+sql_passwd: {{ mpass }}
+sql_database: {{ db }}
+sql_statement: SELECT clear FROM users_usuario LEFT JOIN mails_mailvirtualdomain ON users_usuario.domain_id = mails_mailvirtualdomain.id WHERE CONCAT(users_usuario.username, '@', mails_mailvirtualdomain.domain) = '%u@%r'
+</pre>
+
 <b>En una consola como root:</b>
 <pre>
 postconf -e 'virtual_alias_domains =' 
@@ -105,11 +119,16 @@ postconf -e ' virtual_alias_maps = proxy:mysql:/etc/postfix/sql/alias.cf'
 postconf -e 'virtual_alias_domains =' 
 postconf -e 'virtual_mailbox_domains = mysql:/etc/postfix/sql/domains.cf'
 postconf -e 'transport_maps = proxy:mysql:/etc/postfix/sql/transports.cf'
-postconf -e virtual_mailbox_maps=mysql:/etc/postfix/sql/users.cf
-postconf -e virtual_mailbox_base = /
-postconf -e virtual_gid_maps = mysql:/etc/postfix/sql/gid.cf
-postconf -e virtual_uid_maps = mysql:/etc/postfix/sql/uid.cf
-postconf -e home_mailbox = Maildir/
+postconf -e 'virtual_mailbox_maps=mysql:/etc/postfix/sql/users.cf'
+postconf -e 'virtual_mailbox_base = /'
+postconf -e 'virtual_gid_maps = mysql:/etc/postfix/sql/gid.cf'
+postconf -e 'virtual_uid_maps = mysql:/etc/postfix/sql/uid.cf'
+postconf -e 'home_mailbox = Maildir/'
+postconf -e 'smtpd_sasl_auth_enable = yes'
+postconf -e 'smtpd_recipient_restrictions = permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination, permit'
+postconf -e 'smtpd_sasl_security_options = noanonymous'
+postconf -e 'smtpd_sasl_local_domain = $myhostname'
+postconf -e 'broken_sasl_auth_clients = yes'
 chmod 1777 {{ home }}
 chown root:postfix /etc/postfix/sql -R
 chown 0750 /etc/postfix/sql -R

@@ -8,6 +8,18 @@
 {% block customjs %}
 <script>
 $(document).ready(function(){
+	$('.logmore').mouseenter(function(){
+		var div = $('#div_'+this.id);
+
+		div.css('top',$(this).position().top+16+'px')
+		   .css('left',$(this).position().left-410+'px')
+		   .show();
+	})
+	.mouseleave(function(){
+		var div = $('#div_'+this.id);
+		div.hide();
+	});
+
 });
 </script>
 
@@ -24,15 +36,21 @@ $(document).ready(function(){
 		{% for log in logs %}
 			<tr style='vertical-align: top;'>
 				<td style='width: 130px;'> {% ifchanged %}{{ log.date }}{% endifchanged %}</td>
-				<td style='width: 130px;'>{{ log.daemon}}[{{ log.pid }}]</td>
+				<td style='width: 130px;'><label style='color: #127366;'><b>{{ log.daemon}}</b></label>[<label style='color: #1DB5A1'>{{ log.pid }}</label>]</td>
 				<td>
-					<label class='{% if log.info.status %}{{ log.info.status }}{% else %}normal{% endif %}'>{{ log.info.msg }}</label>
+					{% if log.info.mail_id %}<label class='mailid'>{{ log.info.mail_id }}</label>{% endif %}
+					<label class='{% if log.info.status %}{{ log.info.status }}{% else %}normal{% endif %}'>
+						{% if log.info.msg %}
+						{% autoescape off %}{{ log.info.msg|truncatelog:130 }}{% endautoescape %}
+						{% else %}
+							{% autoescape off %}{{ log.info.original|truncatelog:130 }}{% endautoescape %}
+						{% endif %}
+					</label>
 						{% if log.info.data %}
-						[
-							{% for key, value in log.info.data.items %}
-							{% if key %} {{ key }}={{ value }},{% endif %}
-							{% endfor %}
-						]
+							<a href='#' class='logmore' id='{{ log.id__log }}'>[+]</a>
+							<div id='div_{{ log.id__log }}' class='moreinfo ui-corner-all'>
+							{% for key, value in log.info.data.items %} {% if key %} {{ key }}={{ value }}<br />{% endif %} {% endfor %}
+							</div>
 						{% endif %}
 			</tr>
 		{% empty %}

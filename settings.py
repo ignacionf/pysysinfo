@@ -84,7 +84,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'users',
     'mails',
-    'fw',
+#    'fw',
     'sysinfo',
 )
 

@@ -35,7 +35,7 @@ FILES = {
 	'meminfo': '/proc/meminfo',
 	'cpuinfo': '/proc/cpuinfo',
 	'nicinfo': '/proc/net/dev',
-	'maillog': '/var/log/mail.info.1',
+	'maillog': '/var/log/mail.info',
 	}
 
 SERVICES={
