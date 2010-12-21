@@ -59,9 +59,10 @@ class init:
 		return contents
 
 	def diskinfo(self):
+		"""Parsea la salida del df -h"""
 		import subprocess
 
-		output = subprocess.Popen(['/bin/df','-h' ],stdout=subprocess.PIPE).communicate()[0]
+		output = subprocess.Popen(['/bin/df','-hP' ],stdout=subprocess.PIPE).communicate()[0]
 		lines = output.split('\n')[1:]
 
 		disks=[]
